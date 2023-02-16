@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
+</head>
+<body>
+  <!-- コンテンツ部分 -->
+  <div th:fragment="userList_contents">
+    <div class="page-header">
+      <h1 class="h2">ユーザ一覧</h1>
+    </div>
+    <br />
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">ユーザID</th>
+            <th scope="col">ユーザ名</th>
+            <th scope="col">誕生日</th>
+            <th scope="col">年齢</th>
+            <th scope="col">結婚</th>
+            <!-- <th scope="col"></th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user:${userList}">
+            <td style="text-align: center;">
+              <a th:href="@{'/userDetail/' + ${user.userId}}">
+                <span data-feather="settings"></span>
+              </a>
+            </td>
+            <td th:text="${user.userId}"></td>
+            <td th:text="${user.userName}"></td>
+            <td th:text="${#dates.format(user.birthday, 'YYYY/MM/DD')}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.marriage}?'既婚' : '未婚'"></td>
+            <!-- <td><a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.userId}}"> 詳細 </a></td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- ユーザ一覧の件数 -->
+    <label th:text="'合計：' + ${userListCount} + '件'"></label>
+    <br/><br />
+
+    <!-- 更新・削除処理の結果表示用 -->
+    <!-- <label class="text-primary" th:text="${result}">結果表示</label> -->
+    <label class="text-success" th:if="${result == '更新成功'}" th:text="${result}">結果表示</label>
+    <label class="text-danger" th:unless="${result == '更新成功'}" th:text="${result}">結果表示</label>
+    <br/>
+
+    <!-- CSV出力用のリンク -->
+    <!-- <br/><br /> -->
+    <!-- <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a> -->
+  </div>
+</body>
+</html>

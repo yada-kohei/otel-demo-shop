@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.domain.repository.UserMapper">
+
+	<resultMap type="com.example.demo.domain.model.User" id="user">
+		<id column="user_id" property="userId" />
+		<result column="password" property="password" />
+		<result column="user_name" property="userName" />
+		<result column="birthday" property="birthday" />
+		<result column="age" property="age" />
+		<result column="marriage" property="marriage" />
+		<result column="role" property="role" />
+	</resultMap>
+	
+	<!-- 1件inset -->
+	<insert id="insert" parameterType="com.example.demo.domain.model.User">
+		INSERT INTO user(
+			user_id,
+			password,
+			user_name,
+			birthday,
+			age,
+			marriage,
+			role)
+		VALUES (
+			#{userId},
+			#{password},
+			#{userName},
+			#{birthday},
+			#{age},
+			#{marriage},
+			#{role}
+		)
+	</insert>
+	
+	<!-- 1件検索 -->
+	<select id="selectOne" parameterType="string" resultType="com.example.demo.domain.model.User">
+		SELECT
+			user_id,
+			password,
+			user_name,
+			birthday,
+			age,
+			marriage,
+			role
+		FROM
+			user
+		WHERE
+			user_id = #{userId}
+	</select>
+	
+	<!-- 全件検索 -->
+	<select id="selectMany" resultMap="user">
+		SELECT
+			user_id,
+			password,
+			user_name,
+			birthday,
+			age,
+			marriage,
+			role
+		FROM
+			user
+	</select>
+	
+	<!-- 1件更新 -->
+	<update id="updateOne" parameterType="com.example.demo.domain.model.User">
+		UPDATE user
+			SET
+			password = #{password},
+			user_name = #{userName},
+			birthday = #{birthday},
+			age = #{age},
+			marriage = #{marriage}
+		WHERE user_id = #{userId}
+	</update>
+	
+	<!-- 1件削除 -->
+	<delete id="deleteOne" parameterType="string">
+		DELETE FROM user WHERE user_id = #{userId}
+	</delete>
+
+  <!-- 件数カウント -->
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM user
+  </select>
+</mapper>

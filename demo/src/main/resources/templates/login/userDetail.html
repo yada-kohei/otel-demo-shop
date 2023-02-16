@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"></meta>
+</head>
+<body>
+  <div th:fragment="userDetail_contents">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="page-header">
+          <h1 class="h2">ユーザ詳細</h1>
+        </div>
+        <br />
+        <form class="needs-validation" th:method="post" th:action="@{/userDetail}" th:object="${signupForm}" novalidate>
+          <div class="mb-3 form-group">
+            <label for="userId" class="form-label">ユーザID</label>
+            <input type="text" class="form-control" id="userId" placeholder="Eamil" required th:field="*{userId}" oninput="checkUserId()" readonly>
+            <span id="userIdInvalidFeedback" class="invalid-feedback">ユーザIDを入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="password" class="form-label">パスワード</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" required th:field="*{password}" oninput="checkPassword()">
+            <span id="passwordInvalidFeedback" class="invalid-feedback">パスワードを入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="userName" class="form-label">ユーザ名</label>
+            <input type="text" class="form-control" id="userName" placeholder="UserName" required th:field="*{userName}">
+            <span class="invalid-feedback">ユーザ名を入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="birthday" class="form-label">誕生日</label>
+            <input type="datetime" class="form-control" id="birthday" placeholder="yyyy/MM/dd" required th:field="*{birthday}" oninput="checkBirthday()">
+            <span id="birthdayInvalidFeedback" class="invalid-feedback">誕生日を入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="age" class="form-label">年齢</label>
+            <input type="number" class="form-control" id="age" placeholder="Age" th:field="*{age}" oninput="checkAge()">
+            <span id="ageInvalidFeedback" class="invalid-feedback">年齢を入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="radioMarriage" class="form-label">結婚</label>
+            <div th:each="item : ${radioMarriage}">
+              <input type="radio" name="radioMarriage" class="form-check-input"
+                th:text="${item.key}"
+                th:value="${item.value}"
+                th:field="*{marriage}"
+                />
+            </div>
+          </div>
+
+          <ul>
+            <li th:each="error : ${#fields.detailedErrors()}">
+              <span class="text-danger" th:text=${error.message}>Error message</span>
+            </li>
+          </ul>
+
+          <!-- 更新ボタン -->
+          <button class="btn btn-primary btn-lg pull-right" type="submit" name="update">更新</button>
+          <!-- 削除ボタン -->
+          <button class="btn btn-danger btn-lg" type="submit" name="delete">削除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" th:src="@{/js/form-validation.js}"></script>
+</body>
+</html>

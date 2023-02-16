@@ -1,0 +1,6 @@
+
+# MySQL
+db/data/*
+!db/data/.dummy
+
+.env
