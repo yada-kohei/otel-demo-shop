@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.item.repository.ItemMapper">
+
+	<resultMap type="com.example.item.model.Item" id="item">
+		<id column="item_id" property="itemId" />
+		<result column="item_name" property="itemName" />
+		<result column="description" property="description" />
+		<result column="price" property="price" />
+	</resultMap>
+
+	<!-- 1件inset -->
+	<insert id="insert" parameterType="com.example.item.model.Item">
+		INSERT INTO item(
+			item_id,
+			item_name,
+			description,
+			price)
+		VALUES (
+			#{itemId},
+			#{itemName},
+			#{description},
+			#{price}
+		)
+	</insert>
+
+	<!-- 1件検索 -->
+	<select id="selectOne" parameterType="string" resultType="com.example.item.model.Item">
+		SELECT
+			item_id,
+			item_name,
+			description,
+			price
+		FROM
+			item
+		WHERE
+			item_id = #{itemId}
+	</select>
+
+	<!-- 全件検索 -->
+	<select id="selectMany" resultMap="item">
+		SELECT
+			item_id,
+			item_name,
+			description,
+			price
+		FROM
+			item
+	</select>
+
+	<!-- 1件更新 -->
+	<update id="updateOne" parameterType="com.example.item.model.Item">
+		UPDATE item
+			SET
+			item_name = #{itemName},
+			description = #{description},
+			price = #{price}
+		WHERE item_id = #{itemId}
+	</update>
+
+	<!-- 1件削除 -->
+	<delete id="deleteOne" parameterType="string">
+		DELETE FROM item WHERE item_id = #{itemId}
+	</delete>
+
+  <!-- 件数カウント -->
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM item
+  </select>
+</mapper>

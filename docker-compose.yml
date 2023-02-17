@@ -54,3 +54,37 @@ services:
       - ./userdb/config:/etc/mysql/conf.d
     ports:
       - 3306:3306
+
+  item:
+    container_name: item
+    build: ./item
+    depends_on:
+      - itemdb
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./item:/srv
+    tty: true
+    working_dir: /srv
+    environment:
+      spring.datasource.driverClassName: "com.mysql.cj.jdbc.Driver"
+      spring.datasource.url: "jdbc:mysql://itemdb:3306/item"
+      spring.datasource.username: "mysql"
+      spring.datasource.password: "mysql"
+
+  # MySQL
+  itemdb:
+    container_name: itemdb
+    build: ./itemdb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: item
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./itemdb/initdb/:/docker-entrypoint-initdb.d/
+      - ./itemdb/config:/etc/mysql/conf.d
+    ports:
+      - 3307:3306
