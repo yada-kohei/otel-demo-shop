@@ -18,13 +18,7 @@ public class UserService {
   @Autowired
   UserMapper userMapper;
 
-  // @Autowired
-  // PasswordEncoder passwordEncoder;
-
   public boolean insert(User user) throws DataAccessException {
-
-    // user.setPassword(passwordEncoder.encode(user.getPassword()));
-
     return userMapper.insert(user);
   }
 
@@ -37,9 +31,6 @@ public class UserService {
   }
 
   public boolean updateOne(User user) throws DataAccessException {
-
-    // user.setPassword(passwordEncoder.encode(user.getPassword()));
-
     return userMapper.updateOne(user);
   }
 

@@ -19,7 +19,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.6'
 }

@@ -21,65 +21,52 @@ public class UserController {
   }
 
   @GetMapping("/user/{id:.+}")
-  public User getUserOne(@PathVariable("id") String userId) {
+  public User getUserOne(@PathVariable("id") String userId){
     return service.selectOne(userId);
   }
 
-  // @PostMapping(value = "/userDetail", params = "update")
-  // public String postUserDetailUpdate(@ModelAttribute SignupForm form, Model model) {
+  @PostMapping("/user")
+  public String postUserOne(@RequestBody User user){
+    boolean result = service.insert(user);
 
-  //   System.out.println("更新ボタンの処理");
+    String str = "";
 
-  //   // Userインスタンスの生成
-  //   User user = new User();
+    if(result == true) {
+      str = "{\"result\":\"ok\"}";
+    } else {
+      str = "{\"result\":\"error\"}";
+    }
 
-  //   // フォームクラスをUserクラスに変換
-  //   user.setUserId(form.getUserId());
-  //   user.setPassword(form.getPassword());
-  //   user.setUserName(form.getUserName());
-  //   user.setBirthday(form.getBirthday());
-  //   user.setAge(form.getAge());
-  //   user.setMarriage(form.isMarriage());
+    return str;
+  }
 
-  //   // 更新実行
-  //   boolean result = userService.updateOne(user);
+  @PutMapping("/user")
+  public String putUserOne(@RequestBody User user) {
+    boolean result = service.updateOne(user);
 
-  //   if (result == true) {
-  //     model.addAttribute("result", "更新成功");
-  //   } else {
-  //     model.addAttribute("result", "更新失敗");
-  //   }
+    String str = "";
 
-  //   return getUserList(model);
-  // }
+    if(result == true) {
+      str = "{\"result\":\"ok\"}";
+    } else {
+      str = "{\"result\":\"error\"}";
+    }
 
-  // @PostMapping(value = "/userDetail", params = "delete")
-  // public String postUserDetailDelete(@ModelAttribute SignupForm form, Model model) {
+    return str;
+  }
 
-  //   System.out.println("削除ボタンの処理");
+  @DeleteMapping("/user/{id:.+}")
+  public String deleteUserOne(@PathVariable("id") String userId) {
+    boolean result = service.deleteOne(userId);
 
-  //   // 削除実行
-  //   boolean result = userService.deleteOne(form.getUserId());
+    String str = "";
 
-  //   if (result == true) {
-  //     model.addAttribute("result", "削除成功");
-  //   } else {
-  //     model.addAttribute("result", "削除失敗");
-  //   }
+    if(result == true) {
+      str = "{\"result\":\"ok\"}";
+    } else {
+      str = "{\"result\":\"error\"}";
+    }
 
-  //   return getUserList(model);
-  // }
-
-  // @PostMapping("/logout")
-  // public String postLogout() {
-  //   return "redirect:/login";
-  // }
-
-  // @GetMapping("/admin")
-  // public String getAdmin(Model model) {
-
-  //   model.addAttribute("contents", "login/admin :: admin_contents");
-
-  //   return "login/homeLayout";
-  // }
+    return str;
+  }
 }

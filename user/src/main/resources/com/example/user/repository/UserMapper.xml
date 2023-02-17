@@ -53,7 +53,7 @@
 		UPDATE user
 			SET
 			password = #{password},
-			user_name = #{userName},
+			user_name = #{userName}
 		WHERE user_id = #{userId}
 	</update>
 
