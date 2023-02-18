@@ -1,14 +1,9 @@
 package com.example.demo.domain.model;
 
-import java.util.Date;
-
 public class User {
   private String userId;
 	private String password;
 	private String userName;
-	private Date birthday;
-	private int age;
-	private boolean marriage;
 	private String role;
 
 	public User() {
@@ -26,18 +21,6 @@ public class User {
 		return this.userName;
 	}
 
-	public Date getBirthday() {
-		return this.birthday;
-	}
-
-	public int getAge() {
-		return this.age;
-	}
-
-	public boolean isMarriage() {
-		return this.marriage;
-	}
-
 	public String getRole() {
 		return this.role;
 	}
@@ -52,18 +35,6 @@ public class User {
 
 	public void setUserName(final String userName) {
 		this.userName = userName;
-	}
-
-	public void setBirthday(final Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public void setAge(final int age) {
-		this.age = age;
-	}
-
-	public void setMarriage(final boolean marriage) {
-		this.marriage = marriage;
 	}
 
 	public void setRole(final String role) {

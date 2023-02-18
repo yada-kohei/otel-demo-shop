@@ -17,4 +17,9 @@ public class LoginController {
   public String postLogin(Model model) {
     return "redirect:/home";
   }
+
+  @PostMapping("/logout")
+  public String postLogout() {
+    return "redirect:/login";
+  }
 }

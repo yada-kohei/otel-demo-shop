@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.example.demo.domain.model.GroupOrder;
 import com.example.demo.domain.model.SignupForm;
 import com.example.demo.domain.model.User;
@@ -23,26 +20,9 @@ public class SignupController {
   @Autowired
   private UserService userService;
 
-  private Map<String, String> radioMarriage;
-
-  private Map<String, String> initRadioMarriage() {
-    Map<String, String> radio = new LinkedHashMap<>();
-
-    radio.put("既婚", "true");
-		radio.put("未婚", "false");
-
-		return radio;
-  }
-
   // ユーザ登録画面のGET用のコントローラー
 	@GetMapping("/signup")
   public String getSignUp(@ModelAttribute SignupForm form, Model model) {
-
-    // ラジオボタンの初期化メソッド呼び出し
-    radioMarriage = initRadioMarriage();
-
-    // ラジオボタン用のMapをModelに登録
-    model.addAttribute("radioMarriage", radioMarriage);
 
     // signup.htmlに画面遷移
     return "login/signup";
@@ -50,7 +30,7 @@ public class SignupController {
 
   @PostMapping("/signup")
   public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model) {
-    
+
     if (bindingResult.hasErrors()) {
       return getSignUp(form, model);
     }
@@ -62,12 +42,9 @@ public class SignupController {
     user.setUserId(form.getUserId());
     user.setPassword(form.getPassword());
     user.setUserName(form.getUserName());
-    user.setBirthday(form.getBirthday());
-    user.setAge(form.getAge());
-    user.setMarriage(form.isMarriage());
     user.setRole("ROLE_GENERAL");
 
-    boolean result = userService.insert(user);
+    boolean result = userService.createUser(user);
 
     if (result == true) {
       System.out.println("insert成功");

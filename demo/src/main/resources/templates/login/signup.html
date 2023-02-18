@@ -36,29 +36,6 @@
             <span class="invalid-feedback">ユーザ名を入力してください</span>
           </div>
 
-          <div class="mb-3 form-group">
-            <label for="birthday" class="form-label">誕生日</label>
-            <input type="datetime" class="form-control" id="birthday" placeholder="yyyy/MM/dd" required th:field="*{birthday}" oninput="checkBirthday()">
-            <span id="birthdayInvalidFeedback" class="invalid-feedback">誕生日を入力してください</span>
-          </div>
-
-          <div class="mb-3 form-group">
-            <label for="age" class="form-label">年齢</label>
-            <input type="number" class="form-control" id="age" placeholder="Age" th:field="*{age}" oninput="checkAge()">
-            <span id="ageInvalidFeedback" class="invalid-feedback">年齢を入力してください</span>
-          </div>
-
-          <div class="mb-3 form-group">
-            <label for="radioMarriage" class="form-label">結婚</label>
-            <div th:each="item : ${radioMarriage}">
-              <input type="radio" name="radioMarriage" class="form-check-input" 
-                th:text="${item.key}"
-                th:value="${item.value}"
-                th:field="*{marriage}"
-                />
-            </div>
-          </div>
-
           <ul>
             <li th:each="error : ${#fields.detailedErrors()}">
               <span class="text-danger" th:text=${error.message}>Error message</span>

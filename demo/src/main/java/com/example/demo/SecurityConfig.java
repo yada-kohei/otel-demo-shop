@@ -10,22 +10,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
+@SuppressWarnings("deprecation")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
 
   @Autowired
   private DataSource dataSource;
-  
+
   // ユーザIDとパスワードを取得するSQL文
 	private static final String USER_SQL = "SELECT" + " user_id," + " password," + " true" + " FROM" + " user"
 			+ " WHERE" + " user_id = ?";
@@ -40,6 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 静的リソースへのアクセスには、セキュリティを適用しない
     web.ignoring().antMatchers("/webjars/**", "/css/**", "/images/**", "/js/**");
 
+  }
+  @Bean
+  public static NoOpPasswordEncoder passwordEncoder() {
+    return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
   }
 
   @Override
@@ -64,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .usernameParameter("userId")
         .passwordParameter("password")
         .defaultSuccessUrl("/home", true);
-    
+
     // ログアウト処理
     http.logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -74,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // RESTのみCSRF対策を無効にする場合
     // http.csrf().disable();
   }
-  
+
   @Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -82,8 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     auth.jdbcAuthentication()
         .dataSource(dataSource)
         .usersByUsernameQuery(USER_SQL)
-        .authoritiesByUsernameQuery(ROLE_SQL)
-        .passwordEncoder(passwordEncoder());
+        .passwordEncoder(passwordEncoder())
+        .authoritiesByUsernameQuery(ROLE_SQL);
 	}
-  
+
 }

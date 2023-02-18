@@ -1,12 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.6'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '2.7.8'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '17'
 
 configurations {
 	compileOnly {
@@ -25,7 +25,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	// implementation 'org.webjars:jquery:3.5.1' # bootstrap5にjqueryいらなくなった
@@ -38,9 +38,9 @@ dependencies {
 	implementation 'org.aspectj:aspectjrt:1.9.7'
 	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
 	runtimeOnly 'org.aspectj:aspectjweaver:1.9.7'
-	
+
 	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.6'
 
