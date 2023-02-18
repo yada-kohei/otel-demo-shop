@@ -25,7 +25,7 @@
 	</insert>
 
 	<!-- 1件検索 -->
-	<select id="selectOne" parameterType="string" resultType="com.example.item.model.Item">
+	<select id="selectOne" parameterType="int" resultType="com.example.item.model.Item">
 		SELECT
 			item_id,
 			item_name,
