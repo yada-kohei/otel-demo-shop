@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"></meta>
+</head>
+<body>
+  <div th:fragment="itemDetail_contents">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="page-header">
+          <h1 class="h2">商品詳細</h1>
+        </div>
+        <br />
+        <form class="needs-validation" th:method="post" th:action="@{/itemDetail}" th:object="${itemForm}" novalidate>
+          <div class="mb-3 form-group">
+            <label for="itemId" class="form-label">商品ID</label>
+            <input type="number" class="form-control" id="itemId" placeholder="Id" required th:field="*{itemId}" readonly>
+            <span id="itemIdInvalidFeedback" class="invalid-feedback">商品IDを入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="itemName" class="form-label">商品名</label>
+            <input type="text" class="form-control" id="itemName" placeholder="ItemName" required th:field="*{itemName}">
+            <span class="invalid-feedback">商品名を入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="price" class="form-label">価格</label>
+            <input type="number" class="form-control" id="price" placeholder="Price" required th:field="*{price}">
+            <span id="itemIdInvalidFeedback" class="invalid-feedback">価格を入力してください</span>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="description" class="form-label">商品説明</label>
+            <input type="text" class="form-control" id="description" placeholder="Description" th:field="*{description}">
+          </div>
+
+          <ul>
+            <li th:each="error : ${#fields.detailedErrors()}">
+              <span class="text-danger" th:text=${error.message}>Error message</span>
+            </li>
+          </ul>
+
+          <!-- 更新ボタン -->
+          <button class="btn btn-primary btn-lg pull-right" type="submit" name="update">更新</button>
+          <!-- 削除ボタン -->
+          <button class="btn btn-danger btn-lg" type="submit" name="delete">削除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" th:src="@{/js/form-validation.js}"></script>
+</body>
+</html>
