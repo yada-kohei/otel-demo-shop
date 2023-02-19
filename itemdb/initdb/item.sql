@@ -1,6 +1,6 @@
 USE item;
 
-DROP TABLE IF EXISTS history;
+DROP TABLE IF EXISTS shopping;
 DROP TABLE IF EXISTS item;
 CREATE TABLE item(
 	item_id int PRIMARY KEY,
@@ -9,7 +9,7 @@ CREATE TABLE item(
 	price int
 );
 
-CREATE TABLE history(
+CREATE TABLE shopping(
   id int PRIMARY KEY AUTO_INCREMENT,
   item_id int,
   user_id VARCHAR(50),
@@ -79,7 +79,7 @@ VALUES
   70
 );
 
-INSERT INTO history
+INSERT INTO shopping
 (
   item_id,
   user_id,
@@ -92,7 +92,7 @@ VALUES
   2
 );
 
-INSERT INTO history
+INSERT INTO shopping
 (
   item_id,
   user_id,
