@@ -35,7 +35,7 @@ public class ItemController {
     int count = itemService.countItem();
     model.addAttribute("itemListCount", count);
 
-    return "login/homeLayout";
+    return "home/homeLayout";
   }
 
   @GetMapping("/itemDetail/{id:.+}")
@@ -56,7 +56,7 @@ public class ItemController {
 
     model.addAttribute("itemForm", form);
 
-    return "login/homeLayout";
+    return "home/homeLayout";
   }
 
   @PostMapping(value = "/itemDetail", params = "update")

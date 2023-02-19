@@ -24,7 +24,7 @@ public class UserController {
   public String getUserList(Model model) {
 
     // コンテンツ部分にユーザ一覧を表示するための文字列を登録
-    model.addAttribute("contents", "login/userList::userList_contents");
+    model.addAttribute("contents", "user/userList::userList_contents");
 
     // ユーザ一覧の生成
     // List<User> userList = userService.selectMany();
@@ -37,7 +37,7 @@ public class UserController {
     int count = userService.countUser();
     model.addAttribute("userListCount", count);
 
-    return "login/homeLayout";
+    return "home/homeLayout";
   }
 
   @GetMapping("/userDetail/{id:.+}")
@@ -47,7 +47,7 @@ public class UserController {
     System.out.println("userId = " + userId);
 
     // コンテンツ部分にユーザ詳細を表示するための文字列を登録
-    model.addAttribute("contents", "login/userDetail :: userDetail_contents");
+    model.addAttribute("contents", "user/userDetail :: userDetail_contents");
 
     // ユーザIDのチェック
     if (userId != null && userId.length() > 0) {
@@ -60,7 +60,7 @@ public class UserController {
       model.addAttribute("signupForm", form);
     }
 
-    return "login/homeLayout";
+    return "home/homeLayout";
   }
 
   @PostMapping(value = "/userDetail", params = "update")

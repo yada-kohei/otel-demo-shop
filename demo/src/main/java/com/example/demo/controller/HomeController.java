@@ -9,15 +9,15 @@ public class HomeController {
 
   @GetMapping("/home")
   public String getHome(Model model) {
-    model.addAttribute("contents", "login/home :: home_contents");
-    return "login/homeLayout";
+    model.addAttribute("contents", "home/home :: home_contents");
+    return "home/homeLayout";
   }
 
   @GetMapping("/admin")
   public String getAdmin(Model model) {
 
-    model.addAttribute("contents", "login/admin :: admin_contents");
+    model.addAttribute("contents", "home/admin :: admin_contents");
 
-    return "login/homeLayout";
+    return "home/homeLayout";
   }
 }
