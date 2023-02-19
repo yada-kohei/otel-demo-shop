@@ -30,10 +30,6 @@ public class ShopService {
     return shopMapper.selectMany();
   }
 
-  public List<Shop> selectByUserId(String userId) throws DataAccessException {
-    return shopMapper.selectByUserId(userId);
-  }
-
   public boolean updateOne(Shop shop) throws DataAccessException {
     return shopMapper.updateOne(shop);
   }

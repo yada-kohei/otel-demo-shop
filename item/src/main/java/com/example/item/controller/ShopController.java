@@ -2,9 +2,10 @@ package com.example.item.controller;
 
 import java.util.List;
 
-// import com.example.item.model.SignupForm;
 import com.example.item.model.Shop;
+import com.example.item.model.ShopDetail;
 import com.example.item.service.ShopService;
+import com.example.item.service.ShopDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class ShopController {
   @Autowired
   ShopService service;
 
+  @Autowired
+  ShopDetailService shopDetailService;
+
   @GetMapping("/shop")
   public List<Shop> getShopMany() {
     return service.selectMany();
@@ -23,11 +27,6 @@ public class ShopController {
   @GetMapping("/shop/{id:.+}")
   public Shop getShopOne(@PathVariable("id") int id){
     return service.selectOne(id);
-  }
-
-  @GetMapping("/shop/user/{id:.+}")
-  public List<Shop> getShopByUserId(@PathVariable("id") String userId){
-    return service.selectByUserId(userId);
   }
 
   @PostMapping("/shop")
@@ -53,5 +52,15 @@ public class ShopController {
   public boolean deleteShopbyUserId(@PathVariable("id") String userId) {
     boolean result = service.deleteByUserId(userId);
     return result;
+  }
+
+  @GetMapping("/shopDetail")
+  public List<ShopDetail> getShopDetailMany() {
+    return shopDetailService.selectMany();
+  }
+
+  @GetMapping("/shopDetail/{id:.+}")
+  public List<ShopDetail> getShopDetailByUserId(@PathVariable("id") String userId){
+    return shopDetailService.selectByUserId(userId);
   }
 }

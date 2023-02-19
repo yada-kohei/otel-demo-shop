@@ -104,3 +104,16 @@ VALUES
   'general@example.com',
   1
 );
+
+INSERT INTO shopping
+(
+  item_id,
+  user_id,
+  unit
+)
+VALUES
+(
+  2,
+  'test@example.com',
+  3
+);

@@ -49,19 +49,6 @@
 			shopping
 	</select>
 
-	<select id="selectByUserId" parameterType="string" resultMap="shop">
-		SELECT
-			id,
-			item_id,
-			user_id,
-			unit,
-			created_at
-		FROM
-			shopping
-		WHERE
-			user_id = #{userId}
-	</select>
-
 	<!-- 1件更新 -->
 	<update id="updateOne" parameterType="com.example.item.model.Shop">
 		UPDATE shopping

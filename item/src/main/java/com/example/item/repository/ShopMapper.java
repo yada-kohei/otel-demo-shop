@@ -15,8 +15,6 @@ public interface ShopMapper {
 
   public List<Shop> selectMany();
 
-  public List<Shop> selectByUserId(String userId);
-
   public boolean updateOne(Shop shop);
 
   public boolean deleteOne(int id);

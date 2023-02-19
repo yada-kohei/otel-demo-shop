@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.item.repository.ShopDetailMapper">
+
+	<resultMap type="com.example.item.model.ShopDetail" id="shopDetail">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="item_id" property="itemId" />
+		<result column="item_name" property="itemName" />
+		<result column="price" property="price" />
+		<result column="unit" property="unit" />
+		<result column="sum" property="sum" />
+		<result column="created_at" property="createdAt" />
+	</resultMap>
+
+	<select id="selectMany" resultMap="shopDetail">
+		SELECT
+			shopping.id,
+			shopping.user_id,
+			shopping.item_id,
+			item.item_name,
+			item.price,
+			shopping.unit,
+			item.price * shopping.unit AS sum,
+			created_at
+		FROM
+			shopping
+		JOIN
+			item
+		ON
+			shopping.item_id=item.item_id
+	</select>
+
+	<select id="selectByUserId" parameterType="string" resultMap="shopDetail">
+		SELECT
+			shopping.id,
+			shopping.user_id,
+			shopping.item_id,
+			item.item_name,
+			item.price,
+			shopping.unit,
+			item.price * shopping.unit AS sum,
+			created_at
+		FROM
+			shopping
+		JOIN
+			item
+		ON
+			shopping.item_id = item.item_id
+		WHERE
+			shopping.user_id = #{userId}
+
+	</select>
+
+</mapper>
