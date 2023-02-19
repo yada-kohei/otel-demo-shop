@@ -1,11 +1,22 @@
 USE item;
 
+DROP TABLE IF EXISTS history;
 DROP TABLE IF EXISTS item;
 CREATE TABLE item(
 	item_id int PRIMARY KEY,
 	item_name VARCHAR(50),
 	description VARCHAR(100),
 	price int
+);
+
+CREATE TABLE history(
+  id int PRIMARY KEY AUTO_INCREMENT,
+  item_id int,
+  user_id VARCHAR(50),
+  unit int,
+  created_at timestamp not null default current_timestamp,
+  FOREIGN KEY fk_itemid (item_id) references item(item_id),
+  INDEX(id)
 );
 
 INSERT INTO item
@@ -66,4 +77,30 @@ VALUES
   'New Relic',
   'Recently Popular',
   70
+);
+
+INSERT INTO history
+(
+  item_id,
+  user_id,
+  unit
+)
+VALUES
+(
+  1,
+  'test@example.com',
+  2
+);
+
+INSERT INTO history
+(
+  item_id,
+  user_id,
+  unit
+)
+VALUES
+(
+  1,
+  'general@example.com',
+  1
 );
