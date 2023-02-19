@@ -59,7 +59,7 @@
 	</update>
 
 	<!-- 1件削除 -->
-	<delete id="deleteOne" parameterType="string">
+	<delete id="deleteOne" parameterType="int">
 		DELETE FROM item WHERE item_id = #{itemId}
 	</delete>
 

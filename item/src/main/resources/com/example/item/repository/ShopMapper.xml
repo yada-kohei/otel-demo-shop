@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.item.repository.ShopMapper">
+
+	<resultMap type="com.example.item.model.Shop" id="shop">
+		<id column="id" property="id" />
+		<result column="item_id" property="itemId" />
+		<result column="user_id" property="userId" />
+		<result column="unit" property="unit" />
+		<result column="created_at" property="createdAt" />
+	</resultMap>
+
+	<!-- 1件inset -->
+	<insert id="insert" parameterType="com.example.item.model.Shop">
+		INSERT INTO shopping(
+			item_id,
+			user_id,
+			unit)
+		VALUES (
+			#{itemId},
+			#{userId},
+			#{unit}
+		)
+	</insert>
+
+	<!-- 1件検索 -->
+	<select id="selectOne" parameterType="int" resultType="com.example.item.model.Shop">
+		SELECT
+			id,
+			item_id,
+			user_id,
+			unit,
+			created_at
+		FROM
+			shopping
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- 全件検索 -->
+	<select id="selectMany" resultMap="shop">
+		SELECT
+			id,
+			item_id,
+			user_id,
+			unit,
+			created_at
+		FROM
+			shopping
+	</select>
+
+	<select id="selectByUserId" parameterType="string" resultMap="shop">
+		SELECT
+			id,
+			item_id,
+			user_id,
+			unit,
+			created_at
+		FROM
+			shopping
+		WHERE
+			user_id = #{userId}
+	</select>
+
+	<!-- 1件更新 -->
+	<update id="updateOne" parameterType="com.example.item.model.Shop">
+		UPDATE shopping
+			SET
+			item_id = #{itemId},
+			user_id = #{userId},
+			unit = #{unit}
+		WHERE id = #{id}
+	</update>
+
+	<!-- 1件削除 -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM shopping WHERE id = #{id}
+	</delete>
+
+	<delete id="deleteByUserId" parameterType="int">
+		DELETE FROM shopping WHERE user_id = #{userId}
+	</delete>
+
+  <!-- 件数カウント -->
+  <select id="count" resultType="int">
+    SELECT COUNT(*) FROM shopping
+  </select>
+</mapper>

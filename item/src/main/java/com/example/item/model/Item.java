@@ -1,6 +1,4 @@
-
 package com.example.item.model;
-
 
 public class Item {
   private int itemId;
