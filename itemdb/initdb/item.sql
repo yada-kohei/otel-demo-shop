@@ -46,7 +46,7 @@ VALUES
   2,
   'INSTANA',
   'IBM Observability Product',
-  80
+  75
 );
 
 INSERT INTO item
@@ -61,7 +61,7 @@ VALUES
   3,
   'Datadog',
   'Major Product',
-  50
+  40
 );
 
 INSERT INTO item
@@ -76,7 +76,7 @@ VALUES
   4,
   'New Relic',
   'Recently Popular',
-  70
+  49
 );
 
 INSERT INTO shopping
