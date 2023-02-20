@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.demo.domain.service.ItemService;
 import com.example.demo.domain.service.ShopService;
 import com.example.demo.domain.model.Item;
 import com.example.demo.domain.model.Shop;
 import com.example.demo.domain.model.ShopDetail;
-import com.example.demo.domain.model.ItemForm;
+import com.example.demo.domain.model.ShopForm;
 
 @Controller
 public class ShopController {
@@ -45,7 +46,7 @@ public class ShopController {
   }
 
   @GetMapping("/shopDetail/{id:.+}")
-  public String getShopDetail(@ModelAttribute ItemForm form, Model model, @PathVariable("id") int itemId) {
+  public String getShopDetail(@ModelAttribute ShopForm form, Model model, @PathVariable("id") int itemId) {
 
     // ユーザID確認（デバッグ）
     System.out.println("itemId = " + itemId);
@@ -59,6 +60,7 @@ public class ShopController {
     form.setItemName(item.getItemName());
     form.setDescription(item.getDescription());
     form.setPrice(item.getPrice());
+    form.setUnit(0);
 
     model.addAttribute("shopForm", form);
 
@@ -79,44 +81,28 @@ public class ShopController {
     return "home/homeLayout";
   }
 
-  // @PostMapping(value = "/itemDetail", params = "update")
-  // public String postItemDetailUpdate(@ModelAttribute ItemForm form, Model model) {
+  @PostMapping(value = "/shop")
+  public String postShop(@ModelAttribute ShopForm form, Model model) {
 
-  //   System.out.println("更新ボタンの処理");
+    System.out.println("商品購入");
+    System.out.println(form);
 
-  //   Item item = new Item();
+    Shop shop = new Shop();
+    String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-  //   item.setItemId(form.getItemId());
-  //   item.setItemName(form.getItemName());
-  //   item.setDescription(form.getDescription());
-  //   item.setPrice(form.getPrice());
+    shop.setItemId(form.getItemId());
+    shop.setUserId(userId);
+    shop.setUnit(form.getUnit());
 
-  //   // 更新実行
-  //   boolean result = itemService.updateItem(item);
+    boolean result = shopService.createShop(shop);
 
-  //   if (result == true) {
-  //     model.addAttribute("result", "更新成功");
-  //   } else {
-  //     model.addAttribute("result", "更新失敗");
-  //   }
+    if (result == true) {
+      System.out.println("insert成功");
+    } else {
+      System.out.println("insert失敗");
+    }
 
-  //   return getItemList(model);
-  // }
+    return getMyShopList(model);
+  }
 
-  // @PostMapping(value = "/itemDetail", params = "delete")
-  // public String postItemDetailDelete(@ModelAttribute ItemForm form, Model model) {
-
-  //   System.out.println("削除ボタンの処理");
-
-  //   // 削除実行
-  //   boolean result = itemService.deleteItem(form.getItemId());
-
-  //   if (result == true) {
-  //     model.addAttribute("result", "削除成功");
-  //   } else {
-  //     model.addAttribute("result", "削除失敗");
-  //   }
-
-  //   return getItemList(model);
-  // }
 }

@@ -11,7 +11,7 @@
           <h1 class="h2">商品購入画面</h1>
         </div>
         <br />
-        <form class="needs-validation" th:method="post" th:action="@{/shopDetail}" th:object="${itemForm}" novalidate>
+        <form class="needs-validation" th:method="post" th:action="@{/shop}" th:object="${shopForm}" novalidate>
           <div class="mb-3 form-group">
             <label for="itemId" class="form-label">商品ID</label>
             <input type="number" class="form-control" id="itemId" placeholder="Id" required th:field="*{itemId}" readonly>
@@ -30,6 +30,11 @@
           <div class="mb-3 form-group">
             <label for="description" class="form-label">商品説明</label>
             <input type="text" class="form-control" id="description" placeholder="Description" th:field="*{description}" readonly>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="price" class="form-label">数量</label>
+            <input type="number" class="form-control" id="unit" placeholder="Unit" required th:field="*{unit}">
           </div>
 
           <ul>
