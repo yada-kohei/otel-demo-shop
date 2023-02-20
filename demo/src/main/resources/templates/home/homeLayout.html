@@ -46,21 +46,21 @@
               </a>
             </li>
             <li class="nav-item" role="presentation">
+              <a class="nav-link active" aria-current="page" th:href="@{'/myShopList'}">
+                <span data-feather="dollar-sign"></span>
+                購入履歴
+              </a>
+            </li>
+            <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
               <a class="nav-link active" aria-current="page" th:href="@{'/itemList'}">
                 <span data-feather="box"></span>
                 商品管理
               </a>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
               <a class="nav-link active" aria-current="page" th:href="@{'/userList'}">
                 <span data-feather="users"></span>
                 ユーザ管理
-              </a>
-            </li>
-            <li class="nav-item" role="presentation" sec:authorize="hasRole('ADMIN')">
-              <a class="nav-link active" aria-current="page" th:href="@{'/admin'}">
-                <span data-feather="unlock"></span>
-                アドミン管理
               </a>
             </li>
           </ul>
