@@ -17,5 +17,9 @@ RUN mkdir /app
 
 COPY --from=build /srv/build/libs/*.jar /app/spring-boot-application.jar
 
-ENTRYPOINT ["java", "-jar","/app/spring-boot-application.jar"]
+# ENTRYPOINT ["java", "-jar","/app/spring-boot-application.jar"]
+
+COPY opentelemetry-javaagent.jar /app
+
+ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-jar","/app/spring-boot-application.jar"]
 
