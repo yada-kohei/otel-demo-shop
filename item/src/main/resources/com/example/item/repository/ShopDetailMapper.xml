@@ -9,7 +9,7 @@
 		<result column="item_name" property="itemName" />
 		<result column="price" property="price" />
 		<result column="unit" property="unit" />
-		<result column="sum" property="sum" />
+		<result column="payment" property="payment" />
 		<result column="created_at" property="createdAt" />
 	</resultMap>
 
@@ -21,7 +21,7 @@
 			item.item_name,
 			item.price,
 			shopping.unit,
-			item.price * shopping.unit AS sum,
+			item.price * shopping.unit AS payment,
 			created_at
 		FROM
 			shopping
@@ -39,7 +39,7 @@
 			item.item_name,
 			item.price,
 			shopping.unit,
-			item.price * shopping.unit AS sum,
+			item.price * shopping.unit AS payment,
 			created_at
 		FROM
 			shopping

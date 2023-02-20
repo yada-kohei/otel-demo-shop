@@ -9,7 +9,7 @@ public class ShopDetail {
   private String itemName;
   private int price;
   private int unit;
-  private int sum;
+  private int payment;
   private Timestamp createdAt;
 
   public ShopDetail(){}
@@ -62,12 +62,12 @@ public class ShopDetail {
     this.unit = unit;
   }
 
-  public int getSum() {
-    return sum;
+  public int getPayment() {
+    return payment;
   }
 
-  public void setSum(int sum) {
-    this.sum = sum;
+  public void setPayment(int payment) {
+    this.payment = payment;
   }
 
   public Timestamp getCreatedAt() {
