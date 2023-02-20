@@ -12,12 +12,4 @@ public class HomeController {
     model.addAttribute("contents", "home/home :: home_contents");
     return "home/homeLayout";
   }
-
-  @GetMapping("/admin")
-  public String getAdmin(Model model) {
-
-    model.addAttribute("contents", "home/admin :: admin_contents");
-
-    return "home/homeLayout";
-  }
 }
