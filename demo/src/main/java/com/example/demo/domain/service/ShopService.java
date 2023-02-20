@@ -23,6 +23,10 @@ public class ShopService {
   private String shopUrl = "http://item:8082/api/shop";
   private String shopDetailURL = "http://item:8082/api/shopDetail/";
 
+  public List<ShopDetail> getAllShopDetail() throws DataAccessException {
+    return Arrays.asList(restTemplate.getForObject(shopDetailURL, ShopDetail[].class));
+  }
+
   public List<ShopDetail> getMyShopDetail() throws DataAccessException {
     String userId = SecurityContextHolder.getContext().getAuthentication().getName();
     return Arrays.asList(restTemplate.getForObject(shopDetailURL + userId, ShopDetail[].class));

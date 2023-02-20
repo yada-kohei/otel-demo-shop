@@ -67,6 +67,20 @@ public class ShopController {
     return "home/homeLayout";
   }
 
+  @GetMapping("/allShopList")
+  public String getAllShopList(Model model) {
+
+    // コンテンツ部分にユーザ一覧を表示するための文字列を登録
+    model.addAttribute("contents", "shop/allShopList::allShopList_contents");
+
+    List<ShopDetail> allShopList = shopService.getAllShopDetail();
+
+    // Modelにユーザリストを登録
+    model.addAttribute("allShopList", allShopList);
+
+    return "home/homeLayout";
+  }
+
   @GetMapping("/myShopList")
   public String getMyShopList(Model model) {
 
