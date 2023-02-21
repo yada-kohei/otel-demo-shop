@@ -20,6 +20,7 @@ services:
       spring.datasource.password: "mysql"
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
       OTEL_SERVICE_NAME: demo
+      OTEL_METRIC_EXPORT_INTERVAL: 6000
 
   # Backend API
   user:
@@ -40,6 +41,7 @@ services:
       spring.datasource.password: "mysql"
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
       OTEL_SERVICE_NAME: user
+      OTEL_METRIC_EXPORT_INTERVAL: 6000
 
   item:
     container_name: item
@@ -59,6 +61,7 @@ services:
       spring.datasource.password: "mysql"
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
       OTEL_SERVICE_NAME: item
+      OTEL_METRIC_EXPORT_INTERVAL: 6000
 
   # MySQL
   userdb:
