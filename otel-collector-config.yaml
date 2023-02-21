@@ -6,9 +6,9 @@ receivers:
 exporters:
   prometheus:
     endpoint: "0.0.0.0:8889"
-    namespace: promexample
+    namespace: otel-demo-shop
     const_labels:
-      label1: value1
+      label1: otel-demo
   logging:
     loglevel: debug
 
