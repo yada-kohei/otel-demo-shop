@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import com.example.demo.domain.model.ItemForm;
 
 @Controller
 public class ItemController {
+  private static final Logger logger = LogManager.getLogger(ItemController.class);
 
   @Autowired
   ItemService itemService;
@@ -39,10 +41,11 @@ public class ItemController {
   }
 
   @GetMapping("/itemDetail/{id:.+}")
-  public String getItemDetail(@ModelAttribute ItemForm form, Model model, @PathVariable("id") int itemId) {
+  public String getItemDetail(@ModelAttribute ItemForm form, Model model,
+      @PathVariable("id") int itemId) {
 
     // ユーザID確認（デバッグ）
-    System.out.println("itemId = " + itemId);
+    logger.info("itemId = " + itemId);
 
     // コンテンツ部分にユーザ詳細を表示するための文字列を登録
     model.addAttribute("contents", "item/itemDetail :: itemDetail_contents");
@@ -62,7 +65,7 @@ public class ItemController {
   @PostMapping(value = "/itemDetail", params = "update")
   public String postItemDetailUpdate(@ModelAttribute ItemForm form, Model model) {
 
-    System.out.println("更新ボタンの処理");
+    logger.info("更新ボタンの処理");
 
     Item item = new Item();
 
@@ -86,7 +89,7 @@ public class ItemController {
   @PostMapping(value = "/itemDetail", params = "delete")
   public String postItemDetailDelete(@ModelAttribute ItemForm form, Model model) {
 
-    System.out.println("削除ボタンの処理");
+    logger.info("削除ボタンの処理");
 
     // 削除実行
     boolean result = itemService.deleteItem(form.getItemId());

@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import com.example.demo.domain.model.ShopForm;
 
 @Controller
 public class ShopController {
+  private static final Logger logger = LogManager.getLogger(ShopController.class);
 
   @Autowired
   ItemService itemService;
@@ -46,10 +48,11 @@ public class ShopController {
   }
 
   @GetMapping("/shopDetail/{id:.+}")
-  public String getShopDetail(@ModelAttribute ShopForm form, Model model, @PathVariable("id") int itemId) {
+  public String getShopDetail(@ModelAttribute ShopForm form, Model model,
+      @PathVariable("id") int itemId) {
 
     // ユーザID確認（デバッグ）
-    System.out.println("itemId = " + itemId);
+    logger.info("itemId = " + itemId);
 
     // コンテンツ部分にユーザ詳細を表示するための文字列を登録
     model.addAttribute("contents", "shop/shopDetail :: shopDetail_contents");
@@ -98,8 +101,8 @@ public class ShopController {
   @PostMapping(value = "/shop")
   public String postShop(@ModelAttribute ShopForm form, Model model) {
 
-    System.out.println("商品購入");
-    System.out.println(form);
+    logger.info("商品購入");
+    logger.info(form);
 
     Shop shop = new Shop();
     String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -111,9 +114,9 @@ public class ShopController {
     boolean result = shopService.createShop(shop);
 
     if (result == true) {
-      System.out.println("insert成功");
+      logger.info("insert成功");
     } else {
-      System.out.println("insert失敗");
+      logger.error("insert失敗");
     }
 
     return getMyShopList(model);

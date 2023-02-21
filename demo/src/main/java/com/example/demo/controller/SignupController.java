@@ -4,7 +4,8 @@ import com.example.demo.domain.model.GroupOrder;
 import com.example.demo.domain.model.SignupForm;
 import com.example.demo.domain.model.User;
 import com.example.demo.domain.service.UserService;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SignupController {
+  private static final Logger logger = LogManager.getLogger(ShopController.class);
 
   @Autowired
   private UserService userService;
 
   // ユーザ登録画面のGET用のコントローラー
-	@GetMapping("/signup")
+  @GetMapping("/signup")
   public String getSignUp(@ModelAttribute SignupForm form, Model model) {
 
     // signup.htmlに画面遷移
@@ -29,13 +31,14 @@ public class SignupController {
   }
 
   @PostMapping("/signup")
-  public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model) {
+  public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form,
+      BindingResult bindingResult, Model model) {
 
     if (bindingResult.hasErrors()) {
       return getSignUp(form, model);
     }
 
-    System.out.println(form);
+    logger.info(form);
 
     User user = new User();
 
@@ -47,9 +50,9 @@ public class SignupController {
     boolean result = userService.createUser(user);
 
     if (result == true) {
-      System.out.println("insert成功");
+      logger.info("insert成功");
     } else {
-      System.out.println("insert失敗");
+      logger.info("insert失敗");
     }
 
     return "redirect:/login";
