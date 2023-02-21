@@ -15,7 +15,7 @@ public class DemoApplication {
 
 	@Bean
 	public RestTemplate restTemplate() {
-			RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
-			return restTemplateBuilder.build();
+		RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
+		return restTemplateBuilder.build();
 	}
 }

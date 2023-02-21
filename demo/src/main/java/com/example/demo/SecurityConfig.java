@@ -22,12 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private DataSource dataSource;
 
   // ユーザIDとパスワードを取得するSQL文
-	private static final String USER_SQL = "SELECT" + " user_id," + " password," + " true" + " FROM" + " user"
-			+ " WHERE" + " user_id = ?";
+  private static final String USER_SQL = "SELECT" + " user_id," + " password," + " true" + " FROM"
+      + " user" + " WHERE" + " user_id = ?";
 
-	// ユーザのロールを取得するSQL文
-	private static final String ROLE_SQL = "SELECT" + " user_id," + " role" + " FROM" + " user" + " WHERE"
-			+ " user_id = ?";
+  // ユーザのロールを取得するSQL文
+  private static final String ROLE_SQL =
+      "SELECT" + " user_id," + " role" + " FROM" + " user" + " WHERE" + " user_id = ?";
 
   @Override
   public void configure(WebSecurity web) throws Exception {
@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     web.ignoring().antMatchers("/webjars/**", "/css/**", "/images/**", "/js/**");
 
   }
+
   @Bean
   public static NoOpPasswordEncoder passwordEncoder() {
     return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
@@ -45,31 +46,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
     // ログイン不要ページの設定
-    http.authorizeRequests()
-        .antMatchers("/webjars/**").permitAll()
-        .antMatchers("/css/**").permitAll()
-        .antMatchers("/images/**").permitAll()
-        .antMatchers("/js/**").permitAll()
-        .antMatchers("/login").permitAll()
-        .antMatchers("/signup").permitAll()
-        .antMatchers("/itemList").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/userList").hasAuthority("ROLE_ADMIN")
-        .antMatchers("/allShopList").hasAuthority("ROLE_ADMIN")
+    http.authorizeRequests().antMatchers("/webjars/**").permitAll().antMatchers("/css/**")
+        .permitAll().antMatchers("/images/**").permitAll().antMatchers("/js/**").permitAll()
+        .antMatchers("/login").permitAll().antMatchers("/signup").permitAll()
+        .antMatchers("/itemList").hasAuthority("ROLE_ADMIN").antMatchers("/userList")
+        .hasAuthority("ROLE_ADMIN").antMatchers("/allShopList").hasAuthority("ROLE_ADMIN")
         .anyRequest().authenticated();
 
     // ログイン処理
-    http.formLogin()
-        .loginProcessingUrl("/login")
-        .loginPage("/login")
-        .failureUrl("/login")
-        .usernameParameter("userId")
-        .passwordParameter("password")
-        .defaultSuccessUrl("/home", true);
+    http.formLogin().loginProcessingUrl("/login").loginPage("/login").failureUrl("/login")
+        .usernameParameter("userId").passwordParameter("password").defaultSuccessUrl("/home", true);
 
     // ログアウト処理
-    http.logout()
-        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        .logoutUrl("/logout")
+    http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutUrl("/logout")
         .logoutSuccessUrl("/login");
 
     // RESTのみCSRF対策を無効にする場合
@@ -77,14 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		// ログイン処理時のユーザ情報を、DBから取得する
-    auth.jdbcAuthentication()
-        .dataSource(dataSource)
-        .usersByUsernameQuery(USER_SQL)
-        .passwordEncoder(passwordEncoder())
-        .authoritiesByUsernameQuery(ROLE_SQL);
-	}
+    // ログイン処理時のユーザ情報を、DBから取得する
+    auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(USER_SQL)
+        .passwordEncoder(passwordEncoder()).authoritiesByUsernameQuery(ROLE_SQL);
+  }
 
 }
