@@ -14,11 +14,8 @@ public class LoginController {
 
   private static final Meter meter = GlobalOpenTelemetry.getMeter("demo");
 
-  private static final LongCounter requestsCounter =
-      meter
-          .counterBuilder("app.ads.ad_requests")
-          .setDescription("Counts ad requests by request and response type")
-          .build();
+  private static final LongCounter requestsCounter = meter.counterBuilder("app.demo.login_requests")
+      .setDescription("Counts ad requests by request and response type").build();
 
   @GetMapping("/login")
   public String getLogin(Model model) {
