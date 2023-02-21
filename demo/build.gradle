@@ -8,6 +8,10 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+def opentelemetryVersion = "1.23.1"
+def opentelemetryInstrumentationAlphaVersion = "1.22.1-alpha"
+def grpcVersion = "1.45.1"
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -49,6 +53,11 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
+	implementation platform("io.opentelemetry:opentelemetry-bom:${opentelemetryVersion}")
+	implementation platform("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:${opentelemetryInstrumentationAlphaVersion}")
+
+	implementation("io.opentelemetry:opentelemetry-api")
+	implementation("io.opentelemetry:opentelemetry-sdk")
 }
 
 test {
