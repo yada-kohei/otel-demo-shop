@@ -1,0 +1,28 @@
+image:
+  name: docker:19.03.13
+  entrypoint: [""]
+
+stages:
+  - build
+
+build:
+  stage: build
+  services:
+    - name: docker:19.03.13-dind # Docker in Dockerコンテナをサービスとして起動
+  variables:
+    # Docker in Dockerでbuildするために必要な設定
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    # AWS CLIをインストール
+    - apk add --update py-pip
+    - pip install awscli
+  script:
+    - cd demo
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_REPOSITORY
+    - docker build -t $ECR_REPOSITORY/otel-demo/demo:latest .
+  only:
+    - main
+  tags:
+    - o11y
+    - otel-demo
