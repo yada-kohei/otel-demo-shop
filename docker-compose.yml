@@ -5,6 +5,8 @@ services:
   web:
     container_name: web
     build: ./web
+    depends_on:
+      - demo
     ports:
       - "80:80"
     volumes:
