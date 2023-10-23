@@ -15,7 +15,7 @@ EXPOSE 8082
 
 RUN mkdir /app
 
-COPY --from=build /srv/build/libs/*.jar /app/spring-boot-application.jar
+COPY --from=build /srv/build/libs/*.jar /app/
 
 # ENTRYPOINT ["java", "-jar","/app/spring-boot-application.jar"]
 
